@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>图片缓慢缩放</title>
+<style>
+   div{margin:10px auto;}
+   #container{width:400px;text-align: center;} /*使里面的行内元素（img）居中*/
+   #but{width:100px;}
+</style>
+<script>
+window.onload=function(){
+    var max=document.getElementById("max");
+    var min=document.getElementById("min");
+    var img=document.getElementById("img");
+    var maxWidthEnd=img.width*2;
+    var minWidthEnd=img.width*0.2;
+    function maxFunc(){
+        var maxWidth=img.width*1.3;
+        var maxTimer=setInterval(function(){
+            if(img.width<maxWidth&&img.width<maxWidthEnd){ //放大到两倍就不能再放大
+                img.width=img.width*1.05;
+                img.height=img.height*1.05;
+            }else{
+                clearInterval(maxTimer);
+            }
+            
+        },20);
+    }
+      function minFunc(){
+        var minWidth=img.width*0.7;
+        var minTimer=setInterval(function(){
+            if(img.width>minWidth&&img.width>minWidthEnd){ //放大到两倍就不能再放大
+                img.width=img.width*0.85;
+                img.height=img.height*0.85;
+            }else{
+                clearInterval(minTimer);
+            }
+        },20);
+    }
+    max.onclick=function(){
+        maxFunc();
+    }
+    min.onclick=function(){
+        minFunc();
+    }
+}
+</script>
+</head>
+<body>
+<div id="container">
+    <img src="2.jpg" id="img" />
+    <div id="but">
+        <input type="button" id="max" value="放大">
+        <input type="button" id="min" value="缩小">
+    </div>
+</div>
+</body>
+</html>
